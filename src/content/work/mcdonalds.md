@@ -1,8 +1,8 @@
 ---
-company: "McDonalds"
-role: "French Fryer"
-dateStart: "03/16/2018"
-dateEnd: "07/01/2019"
+company: "Korea University (고려대학교)"
+role: "Undergraduate Student (B.S. in CSE & Statistics)"
+dateStart: "03/01/2025"
+dateEnd: "Current"
 ---
 
-Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure illo neque tempora, voluptatem est quaerat voluptas praesentium ipsa dolorem dignissimos nulla ratione distinctio quae maiores eligendi nostrum? Quibusdam, debitis voluptatum.
+- **Double Major:** Computer Science & Engineering and Statistics

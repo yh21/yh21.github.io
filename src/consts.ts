@@ -19,8 +19,8 @@ export const BLOG: Metadata = {
 };
 
 export const WORK: Metadata = {
-  TITLE: "Work",
-  DESCRIPTION: "Where I have worked and what I have done.",
+  TITLE: "Career",
+  DESCRIPTION: "Where I've learned, built, and grown.",
 };
 
 export const PROJECTS: Metadata = {
