@@ -19,7 +19,7 @@ export const BLOG: Metadata = {
 };
 
 export const WORK: Metadata = {
-  TITLE: "Career",
+  TITLE: "Experience",
   DESCRIPTION: "Where I've learned, built, and grown.",
 };
 
