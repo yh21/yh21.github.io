@@ -6,7 +6,7 @@ repoURL: "https://github.com/yh21/yonsei-vs-korea-hackathon"
 draft: false
 ---
 
-A project built during the **2026 Yonsei vs Korea University AI Hackathon**, together with my team **양진장**. We wrote a bot for a turn-based strategy game called *Flag Battle* (깃발 대항전) and finished **15th** in the final tournament with **31 wins and 17 losses** (64.6% win rate over 48 matches).
+A project built during the **2026 Yonsei vs Korea University AI Hackathon**, together with my team **양진장**. We wrote a bot for a turn-based strategy game called *Flag Battle* and finished **15th** in the final tournament with **31 wins and 17 losses** (64.6% win rate over 48 matches).
 
 ### Overview
 
@@ -68,7 +68,7 @@ One caveat: my practice opponents were variants of my own bots, so simulated res
 
 ### Certificate
 
-The hackathon was officially titled *2026 연고전 AI 해커톤: 캠퍼스 점령전 Agent 개발*. Our team received a Certificate of Achievement (수료증) from the student councils of both universities, issued on October 6, 2026.
+The hackathon was officially titled *2026 연고전 AI 해커톤: 캠퍼스 점령전 Agent 개발*. Our team received a Certificate of Achievement from the student councils of both universities, issued on October 6, 2026.
 
 ![Certificate of Achievement for team 양진장, 2026 Yonsei vs Korea University AI Hackathon](./certificate.png)
 
