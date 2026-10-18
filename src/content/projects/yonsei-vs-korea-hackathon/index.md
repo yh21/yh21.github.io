@@ -1,7 +1,7 @@
 ---
 title: "Yonsei-vs-Korea-hackathon"
 description: "A C++ game-playing agent for the 2026 Yonsei vs Korea University AI Hackathon. Finished 15th."
-date: "09/28/2026"
+date: "10/18/2026"
 repoURL: "https://github.com/yh21/yonsei-vs-korea-hackathon"
 draft: false
 ---
