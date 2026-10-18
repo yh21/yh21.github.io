@@ -66,6 +66,12 @@ An interesting detail is that the win rate in my local simulations stayed around
 
 One caveat: my practice opponents were variants of my own bots, so simulated results do not carry over to the real server perfectly. For the final version (v51) I could not separate its effect on the real server, because the result screen does not show which version played.
 
+### Certificate
+
+The hackathon was officially titled *2026 연고전 AI 해커톤: 캠퍼스 점령전 Agent 개발*. Our team received a Certificate of Achievement (수료증) from the student councils of both universities, issued on October 6, 2026.
+
+![Certificate of Achievement for team 양진장, 2026 Yonsei vs Korea University AI Hackathon](./certificate.png)
+
 ### Tech Stack
 
 - **Language:** C++20, standard library only (server: gcc 12.2, 384MiB memory)
