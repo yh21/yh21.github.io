@@ -24,23 +24,25 @@ Our agent has no neural network and uses only the C++ standard library. The whol
 
 - A **policy** generates candidate plans: risk-weighted paths, target assignment, capture-cost reservation and production decisions.
 - A **local search** rolls each candidate out in a simulator that copies the game engine's turn processing, and keeps the best combination.
-- The bot guesses which of several opponent behavior models has been predicting best so far, and plans against that one. On the real server this prediction accuracy was very low (around 0.07), so I added decisions that stay safe even when the guess is wrong, like repairing flag positions and evaluating the opponent's best counterattack.
-- A search turn is capped at 50ms. The server ran about 7× slower than my laptop, so compute budget directly decided how strong the bot was on the server.
+- The bot guesses which of several opponent behavior models has been predicting best so far, and plans against that one. On the real server this prediction accuracy was very low (around 0.07), so we added decisions that stay safe even when the guess is wrong, like repairing flag positions and evaluating the opponent's best counterattack.
+- A search turn is capped at 50ms. The server ran about 7× slower than a local machine, so compute budget directly decided how strong the bot was on the server.
 
 ### How it evolved
 
-I did not design the final bot in one go. I kept shipping a new version every few hours, about 50 in total, and measured each one against the older ones before keeping it.
+We did not design the final bot in one go. We kept shipping a new version every few hours, about 35 in total (numbered up to v51), and measured each one against the older ones before keeping it.
 
 | Versions | What changed |
 | :-- | :-- |
-| v5 – v14 | Starting from the sample code, simple policies and benchmark scripts |
+| v5 – v14 | First versions: a hand-written planner with precomputed path distances, plus the first benchmark script |
 | v17 – v20 | Simulator ported from the game engine, local search over candidate plans, opponent model selection |
 | v21 – v27 | Faster opening, big CPU savings with identical behavior, deterministic sorting, raid pass, goal tuning |
 | v28 – v29 | Stronger enemy-flag hunting, economy emergency mode, safer flag position repair |
 | v30 – v36 | Teammate work: exact simultaneous-arrival calculation, worst-case counterattack evaluation |
-| v50 – v51 | Final tuning of defense and recapture parameters for the two economy buildings |
+| v50 – v51 | v36 as the base with a fixed sort order, then final tuning of defense and recapture parameters for the two economy buildings |
 
-The first thing I did was run the starter bots against each other to make sure a full 160-turn match worked end to end.
+By commit author, the repository has 38 commits from me and 9 from my teammate. My teammate's commits include v15 and v31 to v37.
+
+The first benchmark was between bot5 and bot6, my first two versions, played with the sides swapped to make sure a full 160-turn match worked end to end. bot6 won both games, 31 to 4.
 
 ![First local match between bot5 and bot6, ending on score 31 to 4](./first-local-match.png)
 
@@ -48,9 +50,9 @@ After that, almost everything became a benchmark loop. I wrote `benchmark.py` to
 
 ![bot10 beating bot5 in 70 of 100 matches](./benchmark-bot10-vs-bot5.png)
 
-Later versions were checked against all earlier ones to catch regressions. Here v15 beats every older bot, though it still lost a couple of games to an opponent I had made.
+Later versions were checked against all earlier ones to catch regressions. Here v15 wins 96 to 100% of its games against every older bot from v5 to v14.
 
-![bot15 against every older bot, winning 96 to 100 percent](./benchmark-bot15-summary.png)
+![bot15 against bot5 to bot14, winning 96 to 100 percent](./benchmark-bot15-summary.png)
 
 ### Results
 
@@ -62,9 +64,9 @@ Later versions were checked against all earlier ones to catch regressions. Here 
 | v50 | 13W 11L | 15th |
 | **Final tournament** | **31W 17L (64.6%)** | **15th** |
 
-An interesting detail is that the win rate in my local simulations stayed around 54 to 63%, but the rank kept going up. Since the tournament is Swiss-style and pairs teams with similar ranks, progress showed up in the rank more than in the win rate.
+An interesting detail is that the win rate in our local simulations stayed around 54 to 63%, but the rank kept going up. Since the tournament is Swiss-style and pairs teams with similar ranks, progress showed up in the rank more than in the win rate.
 
-One caveat: my practice opponents were variants of my own bots, so simulated results do not carry over to the real server perfectly. For the final version (v51) I could not separate its effect on the real server, because the result screen does not show which version played.
+One caveat: our practice opponents were variants of our own bots, so simulated results do not carry over to the real server perfectly. For the final version (v51) we could not separate its effect on the real server, because the result screen does not show which version played.
 
 ### Certificate
 
@@ -77,13 +79,13 @@ The hackathon was officially titled *2026 연고전 AI 해커톤: 캠퍼스 점�
 - **Language:** C++20, standard library only (server: gcc 12.2, 384MiB memory)
 - **Tooling:** Python (`benchmark.py` and the provided local runner) for self-play benchmarks
 - **Checks before adopting a change:** server-speed simulation, re-testing on fresh seeds, ASan/UBSan, a 60ms stress test, and the official self-check
-- **AI assistance:** I used Claude (Claude Code) for writing code, analyzing replays, automating candidate evaluation and safety checks. Every change was still verified with the benchmarks above before I adopted it.
+- **AI assistance:** We used Claude (Claude Code) for writing code, analyzing replays, automating candidate evaluation and safety checks. Every change was still verified with the benchmarks above before we adopted it.
 
 ### Key Takeaways
 
-- **Strong on my laptop is not strong on the server.** The server was about 7× slower, so I built a server-speed simulation first. Only after that could I tell which changes actually helped.
-- **Treat noise honestly.** The same bot could swing by around 40 games out of 120, so I paired comparisons in the same time window, re-tested on new seeds, and did not accept small differences.
-- **Top teams kept their economy buildings.** Holding them, especially the engineering building, was the common strength of the better teams. I could not fully copy this, and changing the opening unit placement is left as the next thing to try.
+- **Strong on a local machine is not strong on the server.** The server was about 7× slower, so we built a server-speed simulation first. Only after that could we tell which changes actually helped.
+- **Treat noise honestly.** The same bot could swing by around 40 games out of 120, so we paired comparisons in the same time window, re-tested on new seeds, and did not accept small differences.
+- **Top teams kept their economy buildings.** Holding them, especially the engineering building, was the common strength of the better teams. We could not fully copy this, and changing the opening unit placement is left as the next thing to try.
 - Shipping a new version every few hours and benchmarking it against the old ones was a better workflow than trying to design the perfect bot first.
 
 The code and the full write-up are in the [repository](https://github.com/yh21/yonsei-vs-korea-hackathon).
